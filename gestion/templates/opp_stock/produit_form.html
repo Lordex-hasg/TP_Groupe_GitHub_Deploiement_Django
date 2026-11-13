@@ -1,0 +1,28 @@
+{% extends "opp_stock/base.html" %}
+{% block title %}{% if produit %}Modifier{% else %}Ajouter{% endif %} un produit{% endblock %}
+{% block content %}
+<h1>{% if produit %}Modifier le produit{% else %}Ajouter un produit{% endif %}</h1>
+{% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
+<form method="post">
+  {% csrf_token %}
+  <label for="nom">Nom
+    <input id="nom" name="nom" maxlength="150" required value="{{ donnees.nom|default:produit.nom }}">
+  </label>
+  <label for="quantite">Quantité
+    <input id="quantite" name="quantite" type="number" min="0" required value="{{ donnees.quantite|default:produit.quantite|default:'0' }}">
+  </label>
+  <label for="seuil_alerte">Seuil d’alerte
+    <input id="seuil_alerte" name="seuil_alerte" type="number" min="0" required value="{{ donnees.seuil_alerte|default:produit.seuil_alerte|default:'5' }}">
+  </label>
+  <label for="categorie">Catégorie
+    <select id="categorie" name="categorie" required>
+      <option value="">Choisir une catégorie</option>
+      {% for categorie in categories %}
+        <option value="{{ categorie.pk }}" {% if donnees.categorie == categorie.pk|stringformat:"s" or produit.categorie_id == categorie.pk %}selected{% endif %}>{{ categorie.nom }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit">Enregistrer</button>
+  <a href="{% url 'opp_stock:liste_produits' %}">Annuler</a>
+</form>
+{% endblock %}
