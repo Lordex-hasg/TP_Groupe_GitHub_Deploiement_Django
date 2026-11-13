@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Gestion de stock{% endblock %}</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#202124}
+    nav{display:flex;gap:1rem;margin-bottom:2rem}a{color:#0757a6}table{width:100%;border-collapse:collapse;margin-top:1rem}
+    th,td{text-align:left;padding:.65rem;border-bottom:1px solid #ddd}label{display:block;margin:.8rem 0}
+    input,select,textarea{display:block;padding:.45rem;min-width:16rem}button{padding:.5rem .8rem;cursor:pointer}
+    .error{color:#a40000}.alert{color:#a40000;font-weight:600}.messages{padding:.5rem;background:#eef8ee}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{% url 'opp_stock:liste_produits' %}">Produits</a>
+    <a href="{% url 'opp_stock:ajouter_produit' %}">Ajouter un produit</a>
+    <a href="{% url 'opp_stock:alertes_stock' %}">Alertes ({{ nombre_alertes|default:0 }})</a>
+    <a href="/admin/">Administration</a>
+  </nav>
+  {% if messages %}<div class="messages">{% for message in messages %}<p>{{ message }}</p>{% endfor %}</div>{% endif %}
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>
