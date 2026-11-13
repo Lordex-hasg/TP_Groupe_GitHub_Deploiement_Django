@@ -37,7 +37,7 @@ class Produit(models.Model):
 
     @property
     def est_en_alerte(self):
-        return self.quantite <= self.seuil_alerte
+        return self.quantite < self.seuil_alerte
 
     def clean(self):
         if self.nom and len(self.nom.strip()) < 2:
