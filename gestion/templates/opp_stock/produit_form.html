@@ -6,13 +6,13 @@
 <form method="post">
   {% csrf_token %}
   <label for="nom">Nom
-    <input id="nom" name="nom" maxlength="150" required value="{{ donnees.nom|default:produit.nom }}">
+    <input id="nom" name="nom" maxlength="150" required {% if donnees %}value="{{ donnees.nom }}"{% elif produit %}value="{{ produit.nom }}"{% endif %}>
   </label>
   <label for="quantite">Quantité
-    <input id="quantite" name="quantite" type="number" min="0" required value="{{ donnees.quantite|default:produit.quantite|default:'0' }}">
+    <input id="quantite" name="quantite" type="number" min="0" required {% if donnees %}value="{{ donnees.quantite }}"{% elif produit %}value="{{ produit.quantite }}"{% else %}value="0"{% endif %}>
   </label>
   <label for="seuil_alerte">Seuil d’alerte
-    <input id="seuil_alerte" name="seuil_alerte" type="number" min="0" required value="{{ donnees.seuil_alerte|default:produit.seuil_alerte|default:'5' }}">
+    <input id="seuil_alerte" name="seuil_alerte" type="number" min="0" required {% if donnees %}value="{{ donnees.seuil_alerte }}"{% elif produit %}value="{{ produit.seuil_alerte }}"{% else %}value="5"{% endif %}>
   </label>
   <label for="categorie">Catégorie
     <select id="categorie" name="categorie" required>
