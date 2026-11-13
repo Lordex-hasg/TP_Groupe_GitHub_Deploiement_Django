@@ -1,0 +1,14 @@
+{% extends "opp_stock/base.html" %}
+{% block title %}Alertes de stock{% endblock %}
+{% block content %}
+<h1>Alertes de stock</h1>
+<p>{{ nombre_alertes }} produit(s) sous le seuil d’alerte.</p>
+{% if produits %}
+<table>
+  <thead><tr><th>Produit</th><th>Catégorie</th><th>Quantité</th><th>Seuil</th></tr></thead>
+  <tbody>{% for produit in produits %}
+    <tr><td>{{ produit.nom }}</td><td>{{ produit.categorie.nom }}</td><td class="alert">{{ produit.quantite }}</td><td>{{ produit.seuil_alerte }}</td></tr>
+  {% endfor %}</tbody>
+</table>
+{% else %}<p>Aucune alerte : le stock est suffisant.</p>{% endif %}
+{% endblock %}
