@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "tp-stock-django-2026",
+    "public": "hosting-public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "gestion-stock-django",
+          "region": "europe-west1",
+          "pinTag": true
+        }
+      }
+    ]
+  }
+}
